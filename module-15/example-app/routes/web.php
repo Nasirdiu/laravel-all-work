@@ -11,11 +11,12 @@ Route::get('/hello3/{key}',[DemoController::class,'DemoAction3'])->middleware([D
 Route::get('/hello4/{key}',[DemoController::class,'DemoAction4'])->middleware([DemoMiddleware::class]);
 */
 
-Route::middleware(['demo'])->group(function (){
+//Route::middleware(['demo'])->group(function (){
+//});
 
     Route::get('/hello1/{key}',[DemoController::class,'DemoAction1']);
     Route::get('/hello2/{key}',[DemoController::class,'DemoAction2']);
     Route::get('/hello3/{key}',[DemoController::class,'DemoAction3']);
     Route::get('/hello4/{key}',[DemoController::class,'DemoAction4']);
 
-});
+
