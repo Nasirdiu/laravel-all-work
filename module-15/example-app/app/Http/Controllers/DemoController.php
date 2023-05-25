@@ -6,20 +6,26 @@ use Illuminate\Http\Request;
 
 class DemoController extends Controller
 {
-function DemoAction1():string
+function DemoAction(Request $request):string
 {
-    return 'Hello1';
+    return "Hello";
+//    return $request->header();
 }
-    function DemoAction2():string{
-        return 'Hello2';
 
-}
-    function DemoAction3():string{
-        return 'Hello3';
-
-    }
-    function DemoAction4():string{
-        return 'Hello4';
-
-    }
+//function DemoAction1():string
+//{
+//    return 'Hello1';
+//}
+//    function DemoAction2():string{
+//        return 'Hello2';
+//
+//}
+//    function DemoAction3():string{
+//        return 'Hello3';
+//
+//    }
+//    function DemoAction4():string{
+//        return 'Hello4';
+//
+//    }
 }
