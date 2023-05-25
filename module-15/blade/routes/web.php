@@ -3,4 +3,4 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/',[HomeController::class,'page']);
+Route::get('/{num1}/{num2}',[HomeController::class,'page']);
