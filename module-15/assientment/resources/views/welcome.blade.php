@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://kit.fontawesome.com/c60a7f43c5.js" crossorigin="anonymous"></script>
     <title>Assientment</title>
 </head>
+
 <body>
     <header>
         <!-- navbar -->
@@ -18,8 +20,8 @@
                 <a class="navbar-brand fw-bold fs-4 " href="#home"> Logo <span class="nav-span">Image</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,15 +47,15 @@
             </div>
         </nav>
     </header>
-    <div class = "text-center">
 
-        <h1>Welcome to Laravel!</h1>
-
-
+    <div >
+        <marquee>
+            <h1>Welcome To Laravel</h1>
+        </marquee>
     </div>
 
 
-<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </body>
-</html>
 
+</html>
