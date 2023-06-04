@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
             $table->unsignedBigInteger('product_id');
-
+            $table->integer('quantity');
             //relationship product_id
 
             $table->foreign('product_id')->references('id')->on('products')
