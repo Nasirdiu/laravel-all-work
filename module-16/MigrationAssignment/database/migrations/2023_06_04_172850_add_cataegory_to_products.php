@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-        $table->after('price',function (Blueprint $table){
-            $table->integer('quantity')->nullable();
-            $table->string('category',50);
-        });
+            $table->after('quantity',function(Blueprint $table){
+                $table->string('category',50);
+            });
         });
     }
 
