@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\DB;
 class DemoController extends Controller
 {
     function DemoAction(){
-   $result= DB::table('products')->get();
+   //$result= DB::table('brands')->get();
+
+        //first & find method
+
+        $result= DB::table('brands')->pluck('brandImg','brandName');
+
    return $result;
     }
 }
