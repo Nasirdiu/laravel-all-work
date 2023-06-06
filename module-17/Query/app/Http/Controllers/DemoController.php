@@ -16,9 +16,14 @@ class DemoController extends Controller
 //        $result= DB::table('products')->select('title','price')->get();
         //$result= DB::table('products')->select('title','price')->distinct()->get(); //unique value select korer jono.
 
-        $result= DB::table('products')
+        //inner join,leftjoin,rightjoin,
+      /*  $result= DB::table('products')
             ->join('categories','products.category_id','=','categories.id')
             ->join('brands','products.brand_id','=','brands.id')
+            ->get();
+      */
+        $result= DB::table('products')
+            ->crossJoin('brands')
             ->get();
    return $result;
     }
