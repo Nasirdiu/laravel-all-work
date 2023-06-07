@@ -31,13 +31,32 @@ class DemoController extends Controller
            ->crossJoin('brands')
            ->get();
   return $result;
-     */
 
+/*
+      //advance join
         $result= DB::table('products')
             ->join('categories',function (JoinClause $join){
                 $join->on('products.category_id','=','categories.id')
                     ->where('products.price','=',20);
             })->get();
+      */
+        /*
+        //union
+        $result1= DB::table('products')->where('products.price','>',2000);
+        $result2= DB::table('products')->where('products.discount','=',1);
+        $result=$result1->union($result2)->get();
+  */
+/*
+        //where
+        $result= DB::table('products')->whereIn('products.price',[20,5000])
+            ->get();
+*/
+        /*
+        $result= DB::table('products')
+            ->whereNotIn('price',[20,2000])
+            ->get();
+        */
+        $result= DB::table('products')->skip(2)->take(2)->get();
         return $result;
     }
 }
