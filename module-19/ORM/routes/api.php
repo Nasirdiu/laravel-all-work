@@ -4,6 +4,6 @@ use App\Http\Controllers\DemoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/create-brand', [DemoController::class, 'DemoAction']);
+Route::post('/create-brand/{brandName}', [DemoController::class, 'DemoAction']);
 
 
