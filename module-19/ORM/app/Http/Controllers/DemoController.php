@@ -24,7 +24,10 @@ class DemoController extends Controller
 //        return Brand::find(1);
 //        return Product::pluck('price','title');
     //    return Product::count('price');
-        return Product::select('title','price')->get();
+//        return Product::select('title','price')->get();
+
+//        return Product::skip(10)->take(1)->first();
+        return Product::simplePaginate(2);
     }
 
 }
