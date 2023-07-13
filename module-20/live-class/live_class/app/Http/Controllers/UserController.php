@@ -42,10 +42,21 @@ class UserController extends Controller
 
 
     }
-    function OTPVerify(){
+    function OTPVerify(Request $request){
+        $res=User::where($request->input())->count();
+        if($res==1) {
+            User::where($request->input())->update(['otp'=>"0"]);
+            //Tag->
+            return response()->json(['msg'=>"success",'data'=>'Verified']);
+        }
+        else{
+            return response()->json(['msg'=>"fail",'data'=>'unauthorized']);
+        }
 
     }
-    function SetPassword(){
+    function SetPassword(Request $request){
+        User::where($request->input())->update(['password'=>$request->input('password')]);
+        return response()->json(['msg'=>"success",'data'=>'updated']);
 
     }
     function ProfileUpdate(){
