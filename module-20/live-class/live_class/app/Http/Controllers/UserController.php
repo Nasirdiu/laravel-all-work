@@ -31,7 +31,7 @@ class UserController extends Controller
 
         if($res==1){
             // Mail Send
-            Mail::to($UserEmail)->send(new OTPEmail());
+            Mail::to($UserEmail)->send(new OTPEmail($otp));
             // Database Update
             User::where($request->input())->update(['otp'=>$otp]);
             return response()->json(['msg'=>"success",'data'=>'OTP sent to your email']);
