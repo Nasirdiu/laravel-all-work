@@ -3,7 +3,8 @@
 namespace App\Helper;
 
 use Firebase\JWT\JWT;
-use Mockery\Exception;
+use Firebase\JWT\Key;
+use Exception;
 
 class JWTToken
 {
@@ -18,7 +19,19 @@ class JWTToken
      return JWT::encode($payload,$key,'HS256');
     }
 
-  public static function VerifyToken($token):string{
+    public static function CreateTokenForSetPassword($userEmail):string{
+        $key =env('JWT_KEY');
+        $payload=[
+            'iss'=>'laravel-token',
+            'iat'=>time(),
+            'exp'=>time()+60*20,
+            'userEmail'=>$userEmail
+        ];
+        return JWT::encode($payload,$key,'HS256');
+    }
+
+    public static function VerifyToken($token):string
+    {
         try {
             $key =env('JWT_KEY');
             $decode=JWT::decode($token,new Key($key,'HS256'));
@@ -27,6 +40,5 @@ class JWTToken
         catch (Exception $e){
             return 'unauthorized';
         }
-
     }
 }
