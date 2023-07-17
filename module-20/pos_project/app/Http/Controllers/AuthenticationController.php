@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper\JWTToken;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class AuthenticationController extends Controller
