@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helper\JWTToken;
 use App\Mail\OTPMail;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -115,10 +116,11 @@ class UserController extends Controller
                 'message' => 'Request Successful',
             ], 200);
 
-        } catch (Exception $exception) {
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 'fail',
-                'message' => 'Something Went Wrong',
+               // 'message' => 'Something Went Wrong',
+                'message' => $e->getMessage()
             ], 200);
         }
     }
