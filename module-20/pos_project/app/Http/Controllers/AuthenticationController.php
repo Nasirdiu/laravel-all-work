@@ -43,7 +43,7 @@ class AuthenticationController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'User Login Successful',
-                'token'=>$token
+               // 'token'=>$token
             ],200);
 
         }else{
