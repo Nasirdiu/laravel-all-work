@@ -2,128 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\income;
+use App\Models\Income;
+use App\Models\IncomeCategory;
 use Illuminate\Http\Request;
 
 class IncomeController extends Controller
 {
 
-    public function income()
+    public function index()
     {
-        return view('income.income');
-    }
-    public function addIncome()
-    {
-        return view('income.addIncome');
+        $income_cat = IncomeCategory::all();
+        return view('pages.dashboard.category-page', compact('income_cat'));
     }
 
-    public function incomeFrom(Request $request)
+    public function IncomeList()
     {
-       $data = new income();
+        $user_id = auth()->user()->id;
 
-       $data->amount = $request->amount;
-       $data->description = $request->description;
-       $data->date = $request->date;
-       $data->category = $request->category;
-       $data->save();
-       return redirect('incomeView');
+        return Income::where('user_id', '=', $user_id)->get();
     }
 
-    public function incomeView()
-    {
-        $data = income::all();
-        $sum = income::sum('amount');
-        $count = income::count('id');
-        return view('income.incomeView',compact('data','sum','count'));
-    }
-
-    public function deleteIncome($id)
-    {
-        $data = income::find($id);
-        $data->delete();
-        return redirect()->back();
-    }
-
-    public function editIncome($id)
-    {
-        $data = income::find($id);
-        return view('income.editIncome',compact('data'));
-    }
-    public function editIncomeFrom(Request $request, $id)
-    {
-        $data = income::find($id);
-        $data->amount = $request->amount;
-        $data->description = $request->description;
-        $data->date = $request->date;
-        $data->category = $request->category;
-        $data->save();
-        return redirect('incomeView');
-    }
-
-    public function filterIncome()
-    {
-        return view('income.filterIncome');
-    }
-    public function dateIncome()
-    {
-        return view('income.startEndDate');
-
-    }
-    public function filterByDateIncome(Request $request)
-    {
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
-
-        $data = income::whereBetween('date',[$start_date, $end_date])
-            ->orderBy('date', 'ASC')
-            ->get();
-
-        $sum = income::whereBetween('date',[$start_date, $end_date])
-            ->orderBy('date', 'ASC')
-            ->sum('amount');
-        $count = income::whereBetween('date',[$start_date, $end_date])
-            ->orderBy('date', 'ASC')
-            ->count('id');
-        return view('income.incomeView',compact('data','sum','count'));
-    }
-    public function amountIncomeAsc()
-    {
-        $data = income::orderBy('amount', 'ASC')
-            ->get();
-        $sum = income::orderBy('amount', 'ASC')
-            ->sum('amount');
-        $count = income::orderBy('amount', 'ASC')
-            ->count('id');
-        return view('income.incomeView',compact('data','sum','count'));
-    }
-    public function amountIncomeDsc()
-    {
-        $data = income::orderBy('amount', 'desc')
-            ->get();
-        $sum = income::orderBy('amount', 'desc')
-            ->sum('amount');
-        $count = income::orderBy('amount', 'desc')
-            ->count('id');
-        return view('income.incomeView',compact('data','sum','count'));
-    }
-    public function filterIncomeCat()
-    {
-        return view('income.filterIncomeCat');
-    }
-
-    public function incomeFilterByCat(Request $request)
+    public function createIncome(Request $request)
     {
 
-        $data = income::where('category','=',$request->category)
-            ->orderBy('date', 'ASC')
-            ->get();
+        $name = $request->name;
+        $amount = $request->amount;
 
-        $sum = income::where('category','=',$request->category)
-            ->orderBy('date', 'ASC')
-            ->sum('amount');
-        $count = income::where('category','=',$request->category)
-            ->orderBy('date', 'ASC')
-            ->count('id');
-        return view('income.incomeView',compact('data','sum','count'));
+        $desc = $request->desc;
+        $date = $request->date;
+
+        $user_id = auth()->user()->id;
+        $income_cat_id = $request->income_cat_id;
+
+        return Income::create([
+            'name' => $name,
+            'amount' => $amount,
+            'desc' => $desc,
+            'date' => $date,
+            'user_id' => $user_id,
+            'income_category_id' => $income_cat_id, 
+        ]);
+    }
+
+    public function IncomeById(Request $request)
+    {
+        $income_id = $request->input('id');
+
+        $user_id = $request->header('id');
+
+        return Income::where('id', $income_id)->first();
+    }
+
+
+    public function updateIncome(Request $request)
+    {
+
+        $income_id = $request->id;
+
+        $income = Income::find($income_id);
+
+        if (!$income) {
+            return response()->json(['message' => 'Income not found'], 404);
+        }
+
+        // Update only the fields that are provided in the request
+        return $income->update($request->only(['name', 'amount', 'desc', 'date']));
+    }
+
+
+
+    public function deleteIncome(Request $request)
+    {
+        $income_id = $request->id;
+
+        return Income::where('id', '=', $income_id)->delete();
     }
 }
